@@ -23,17 +23,6 @@ export default function AdminDonateBlood() {
 		InitialDataFetching({ source: "donate-blood", setData });
 	}, []);
 
-	// useEffect(() => {
-	// 	axios
-	// 		.get("http://localhost:3001/api/donate-blood")
-	// 		.then((response) => {
-	// 			setData(response.data);
-	// 		})
-	// 		.catch((error) => {
-	// 			console.error(error);
-	// 		});
-	// }, []);
-
 	useEffect(() => {
 		data.map((item) => {
 			if (item.id == selectedId) {
@@ -103,6 +92,7 @@ export default function AdminDonateBlood() {
 						item.id === id ? { ...item, donated: status } : item
 					)
 				);
+				console.log(`status: ${status} --- donated: ${item.donated}`);
 			})
 			.catch((error) => {
 				console.error(error);
@@ -167,7 +157,7 @@ export default function AdminDonateBlood() {
 	return (
 		<>
 			<HeaderStats heading="Blood Donating Users" />
-			<div className="bg-white p-10 m-10 -mt-20 rounded-rsm">
+			<div className="p-10 m-10 -mt-20 bg-white rounded-rsm">
 				<FilterableComponent
 					filter={filter}
 					handleSearchChange={handleSearchChange}
@@ -191,7 +181,6 @@ export default function AdminDonateBlood() {
 						setSelectedId={setSelectedId}
 						updatedData={updatedData}
 						setUpdatedData={setUpdatedData}
-
 					/>
 				</div>
 			</div>

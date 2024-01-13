@@ -7,7 +7,6 @@ import axios from "axios";
 import { BiDonateBlood, BiHelpCircle } from "react-icons/bi";
 import { MdOutlineBloodtype } from "react-icons/md";
 import { MdOutlineVolunteerActivism } from "react-icons/md";
-import CardLineChart from "../../sections/chart/chart-component";
 import FilterableComponent from "../../sections/filterable/filterable-component";
 import DisplayTableComponent from "../../sections/display-table/display-table-component";
 import InitialDataFetching from "../../utility-functions/initial-data-fetching";
@@ -156,12 +155,12 @@ const Dashboard = () => {
 	return (
 		<>
 			<HeaderStats />
-			<div className="bg-white p-10 m-10 -mt-20 rounded-rsm">
+			<div className="p-10 m-10 -mt-20 bg-white rounded-rsm">
 				<div className="flex flex-wrap">
 					{cardData.map((item, index) => (
 						<Link
 							to={item.to}
-							className="w-full lg:w-6/12 xl:w-3/12 px-4"
+							className="w-full px-4 lg:w-6/12 xl:w-3/12"
 							key={item.key}
 						>
 							<CardStats
@@ -176,7 +175,7 @@ const Dashboard = () => {
 						</Link>
 					))}
 				</div>
-				{/* <div className="w-full xl:w-8/12 mb-12 xl:mb-0 px-4">
+				{/* <div className="w-full px-4 mb-12 xl:w-8/12 xl:mb-0">
 					<CardLineChart />
 				</div> */}
 

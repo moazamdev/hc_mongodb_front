@@ -9,8 +9,8 @@ const FormComponent = ({
 	formData,
 	setFormData,
 	handleSubmit,
+	status,
 }) => {
-	const [status, setStatus] = useState("Pending");
 	const inputStyles = `block w-full flex justify-start items-start rounded-rsm border-0 px-8 py-3 md:px-10 md:py-4 bg-light text-white ring-none placeholder:text-white outline-none focus:ring-1 focus:ring-center focus:bg-dark focus:ring-light sm:text-sm sm:leading-6`;
 	return (
 		<WrapperSection>
@@ -21,7 +21,7 @@ const FormComponent = ({
 					{heading}
 				</h3>
 				{status === "Submited" ? (
-					<p className="text-center text-white text-sm sm:text-base mt-5">
+					<p className="mt-5 text-sm text-center text-white sm:text-base">
 						Thank you for contacting HemoCell. We will get back to
 						you as soon as possible.
 					</p>
@@ -46,10 +46,10 @@ const FormComponent = ({
 								id={field.name}
 								className={inputStyles}
 								placeholder={field.placeholder}
-								required={field.required}
+								required
 							/>
 						))}
-						<div className="grid sm:col-span-2 gap-5 w-full">
+						<div className="grid w-full gap-5 sm:col-span-2">
 							<textarea
 								onChange={(e) =>
 									setFormData({
@@ -66,32 +66,14 @@ const FormComponent = ({
 								placeholder="Any other information..."
 							/>
 						</div>
-						<div className="grid place-items-center sm:col-span-2 gap-5 mb-5 w-full">
+						<div className="grid w-full gap-5 mb-5 place-items-center sm:col-span-2">
 							<button
 								type="submit"
 								name="submit"
-								onClick={(e) => {
-									handleSubmit(e);
-									setStatus("Submited");
-								}}
 								className={` rounded-rsm border border-white hover:border-red text-dark bg-white hover:bg-red hover:text-white transition px-10 py-4 text-sm w-fit font-bold w-fit cursor-pointer`}
 							>
 								{buttonText}
 							</button>
-							{/* <button
-								className={` rounded-rsm border border-white hover:border-red text-dark bg-white hover:bg-red hover:text-white transition px-10 py-4 text-sm w-fit font-bold w-fit cursor-pointer`}
-								// onClick={() => {
-								// 	handleSubmit;
-								// 	setStatus("Submited");
-								// }}
-								type="submit"
-								onClick={(e) => {
-									handleSubmit(e);
-									setStatus("Submited");
-								}}
-							>
-								{buttonText}
-							</button> */}
 						</div>
 					</form>
 				)}

@@ -23,8 +23,12 @@ const DonateBloodPage = () => {
 		message: "",
 	});
 
+	const [status, setStatus] = useState("Pending");
+
 	const handleSubmit = (e) => {
 		e.preventDefault();
+
+		setStatus("Submited");
 
 		// check if any field is empty then return from here
 		// if (!formData.name || !formData.email || !formData.phone) {
@@ -174,6 +178,7 @@ const DonateBloodPage = () => {
 				handleSubmit={handleSubmit}
 				formData={formData}
 				setFormData={setFormData}
+				status={status}
 			/>
 			<ThreeStepProcessComponent
 				stepsText={DonateBloodPageDetails.stepsText}

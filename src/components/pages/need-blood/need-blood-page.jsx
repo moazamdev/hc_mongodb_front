@@ -21,8 +21,12 @@ const NeedBloodPage = () => {
 		message: "",
 	});
 
+	const [status, setStatus] = useState("Pending");
+
 	const handleSubmit = (e) => {
 		e.preventDefault();
+
+		setStatus("Submited");
 
 		console.log(formData);
 
@@ -160,6 +164,7 @@ const NeedBloodPage = () => {
 				handleSubmit={handleSubmit}
 				formData={formData}
 				setFormData={setFormData}
+				status={status}
 			/>
 			<QuoteComponent {...NeedBloodPageDetails.quote} />
 			<SearchBloodStockComponent {...NeedBloodPageDetails.bloodStock} />

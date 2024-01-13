@@ -21,8 +21,14 @@ const ContactPage = () => {
 		message: "",
 	});
 
+	const [status, setStatus] = useState("Pending");
+
+
 	const handleSubmit = (e) => {
 		e.preventDefault();
+
+		setStatus("Submited");
+
 
 		console.log(formData);
 
@@ -127,6 +133,8 @@ const ContactPage = () => {
 				handleSubmit={handleSubmit}
 				formData={formData}
 				setFormData={setFormData}
+				status={status}
+
 			/>
 			<ContactDetailsComponent contactDetails={contactDetails} />
 			<BeforeFooterCTA />

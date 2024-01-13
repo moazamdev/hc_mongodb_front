@@ -22,8 +22,14 @@ const HostBloodDrivePage = () => {
 		message: "",
 	});
 
+	const [status, setStatus] = useState("Pending");
+
+
 	const handleSubmit = (e) => {
 		e.preventDefault();
+
+		setStatus("Submited");
+
 
 		console.log(formData);
 
@@ -178,6 +184,8 @@ const HostBloodDrivePage = () => {
 				handleSubmit={handleSubmit}
 				formData={formData}
 				setFormData={setFormData}
+				status={status}
+
 			/>
 			<ThreeStepProcessComponent
 				stepsText={HostBloodDrivePageDetails.stepsText}

@@ -1,13 +1,15 @@
 /*eslint-disable*/
 import React from "react";
-import { Link } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import logo from "../../../public/HemoCell Logo black.png";
-
-// import NotificationDropdown from "components/Dropdowns/NotificationDropdown.js";
-// import UserDropdown from "components/Dropdowns/UserDropdown.js";
 
 export default function Sidebar() {
 	const [collapseShow, setCollapseShow] = React.useState("hidden");
+
+	const location = useLocation();
+	const { pathname } = location;
+	const splitLocation = pathname.split("/");
+
 	return (
 		<>
 			<nav className="relative z-10 flex flex-wrap items-center justify-between px-6 py-4 bg-white shadow-xl md:left-0 md:block md:fixed md:top-0 md:bottom-0 md:overflow-y-auto md:flex-row md:flex-nowrap md:overflow-hidden md:w-64">
@@ -23,12 +25,12 @@ export default function Sidebar() {
 						<i className="fas fa-bars"></i>
 					</button>
 					{/* Brand */}
-					<Link
+					<NavLink
 						className="inline-block p-4 px-0 mr-0 text-sm font-bold text-left uppercase md:block md:pb-2 text-blueGray-600 whitespace-nowrap"
 						to="/"
 					>
 						<img src={logo} alt="logo" width={"80%"} />
-					</Link>
+					</NavLink>
 					{/* User */}
 					{/* <ul className="flex flex-wrap items-center list-none md:hidden">
 						<li className="relative inline-block">
@@ -49,12 +51,12 @@ export default function Sidebar() {
 						<div className="block pb-4 mb-4 border-b border-solid md:min-w-full md:hidden border-blueGray-200">
 							<div className="flex flex-wrap">
 								<div className="w-6/12">
-									<Link
+									<NavLink
 										className="inline-block p-4 px-0 mr-0 text-sm font-bold text-left uppercase md:block md:pb-2 text-blueGray-600 whitespace-nowrap"
 										to="/"
 									>
 										HemoCell
-									</Link>
+									</NavLink>
 								</div>
 								<div className="flex justify-end w-6/12">
 									<button
@@ -79,83 +81,69 @@ export default function Sidebar() {
 
 						<ul className="flex flex-col list-none md:flex-col md:min-w-full">
 							<li className="items-center">
-								<Link
-									className={
-										"text-[16px] py-3 font-bold block " +
-										(window.location.href.indexOf(
-											"/admin"
-										) !== -1
-											? "text-red hover:text-dark_red"
-											: "text-dark_gray hover:text-gray")
-									}
+								<NavLink
+									className={`${
+										splitLocation[1] === "admin" &&
+										splitLocation.length == 2
+											? "text-red hover:text-dark_red text-[16px] py-3 block font-bold"
+											: "text-[16px] py-3 font-bold block text-dark_gray hover:text-gray"
+									}`}
 									to="/admin"
 								>
 									Dashboard
-								</Link>
+								</NavLink>
 							</li>
 
 							<li className="items-center">
-								<Link
-									className={
-										"text-[16px] py-3 font-bold block " +
-										(window.location.href.indexOf(
-											"/donate-blood"
-										) !== -1
-											? "text-red hover:text-dark_red"
-											: "text-dark_gray hover:text-gray")
-									}
+								<NavLink
+									className={`${
+										splitLocation[2] === "donate-blood"
+											? "text-red hover:text-dark_red text-[16px] py-3 block font-bold"
+											: "text-[16px] py-3 font-bold block text-dark_gray hover:text-gray"
+									}`}
 									to="/admin/donate-blood"
 								>
 									Donate Blood
-								</Link>
+								</NavLink>
 							</li>
 
 							<li className="items-center">
-								<Link
-									className={
-										"text-[16px] py-3 font-bold block " +
-										(window.location.href.indexOf(
-											"/need-blood"
-										) !== -1
-											? "text-red hover:text-dark_red"
-											: "text-dark_gray hover:text-gray")
-									}
+								<NavLink
+									className={`${
+										splitLocation[2] === "need-blood"
+											? "text-red hover:text-dark_red text-[16px] py-3 block font-bold"
+											: "text-[16px] py-3 font-bold block text-dark_gray hover:text-gray"
+									}`}
 									to="/admin/need-blood"
 								>
 									Need Blood
-								</Link>
+								</NavLink>
 							</li>
 
 							<li className="items-center">
-								<Link
-									className={
-										"text-[16px] py-3 font-bold block " +
-										(window.location.href.indexOf(
-											"/host-blood-drive"
-										) !== -1
-											? "text-red hover:text-dark_red"
-											: "text-dark_gray hover:text-gray")
-									}
+								<NavLink
+									className={`${
+										splitLocation[2] === "host-blood-drive"
+											? "text-red hover:text-dark_red text-[16px] py-3 block font-bold"
+											: "text-[16px] py-3 font-bold block text-dark_gray hover:text-gray"
+									}`}
 									to="/admin/host-blood-drive"
 								>
 									Host Blood Drive
-								</Link>
+								</NavLink>
 							</li>
 
 							<li className="items-center">
-								<Link
-									className={
-										"text-[16px] py-3 font-bold block " +
-										(window.location.href.indexOf(
-											"/need-help"
-										) !== -1
-											? "text-red hover:text-dark_red"
-											: "text-dark_gray hover:text-gray")
-									}
+								<NavLink
+									className={`${
+										splitLocation[2] === "need-help"
+											? "text-red hover:text-dark_red text-[16px] py-3 block font-bold"
+											: "text-[16px] py-3 font-bold block text-dark_gray hover:text-gray"
+									}`}
 									to="/admin/need-help"
 								>
 									Need Help
-								</Link>
+								</NavLink>
 							</li>
 						</ul>
 
@@ -169,21 +157,27 @@ export default function Sidebar() {
 
 						<ul className="flex flex-col list-none md:flex-col md:min-w-full md:mb-4">
 							<li className="items-center">
-								<Link
-									className="text-dark_gray hover:text-gray text-[16px] py-3 font-bold block"
+								<NavLink
+									className={`${
+										splitLocation[1] === ""
+											? "text-red hover:text-dark_red text-[16px] py-3 block font-bold"
+											: "text-[16px] py-3 font-bold block text-dark_gray hover:text-gray"
+									}`}
 									to="/"
 								>
 									Landing Page
-								</Link>
+								</NavLink>
 							</li>
 
 							<li className="items-center">
-								<Link
-									className="text-dark_gray hover:text-gray text-[16px] py-3 font-bold block"
+								<NavLink
+									className={
+										"text-[16px] py-3 font-bold block text-dark_gray hover:text-gray"
+									}
 									to="/admin"
 								>
 									Dashboard
-								</Link>
+								</NavLink>
 							</li>
 						</ul>
 
