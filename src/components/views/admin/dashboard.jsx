@@ -11,6 +11,8 @@ import FilterableComponent from "../../sections/filterable/filterable-component"
 import DisplayTableComponent from "../../sections/display-table/display-table-component";
 import InitialDataFetching from "../../utility-functions/initial-data-fetching";
 
+import { BASE_URL } from "../../utility-functions/base-url";
+
 const Dashboard = () => {
 	const [data, setData] = useState([]);
 	const [filter, setFilter] = useState("");
@@ -19,17 +21,6 @@ const Dashboard = () => {
 	useEffect(() => {
 		InitialDataFetching({ source: "dashboard", setData });
 	}, []);
-
-	// useEffect(() => {
-	// 	axios
-	// 		.get("http://localhost:3001/api/dashboard")
-	// 		.then((response) => {
-	// 			setData(response.data);
-	// 		})
-	// 		.catch((error) => {
-	// 			console.error(error);
-	// 		});
-	// }, []);
 
 	const handleSearchChange = (e) => {
 		setFilter(e.target.value);
@@ -115,7 +106,7 @@ const Dashboard = () => {
 		let status = !item.checked;
 
 		axios
-			.put(`http://localhost:3001/api/new-users/checked`, {
+			.put(`${BASE_URL}/api/new-users/checked`, {
 				status,
 				id,
 			})
@@ -133,13 +124,30 @@ const Dashboard = () => {
 
 	const handleDelete = (id) => {
 		axios
-			.delete(`http://localhost:3001/api/dashboard/delete/${id}`)
-			.then((response) => {
-				setData(data.filter((item) => item.id !== id));
+			.delete(`${BASE_URL}/api/dashboard/delete/${id}`)
+			.then((res) => {
+				setData(res.data);
 			})
 			.catch((error) => {
 				console.error(error);
 			});
+			
+		axios
+			.delete(`${BASE_URL}/api/dashboard/delete/${id}`)
+			.then((res) => {
+				setData(res.data);
+			})
+			.catch((error) => {
+				console.error(error);
+			});
+		// axios
+		// 	.delete(`http://localhost:3001/api/dashboard/delete/${id}`)
+		// 	.then((response) => {
+		// 		setData(data.filter((item) => item.id !== id));
+		// 	})
+		// 	.catch((error) => {
+		// 		console.error(error);
+		// 	});
 	};
 
 	const optionsData = [

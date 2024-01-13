@@ -5,6 +5,8 @@ import DisplayTableComponent from "../../sections/display-table/display-table-co
 import FilterableComponent from "../../sections/filterable/filterable-component";
 import InitialDataFetching from "../../utility-functions/initial-data-fetching";
 
+import { BASE_URL } from "../../utility-functions/base-url";
+
 export default function AdminHostBloodDrive() {
 	const [data, setData] = useState([]);
 	const [filter, setFilter] = useState("");
@@ -97,7 +99,7 @@ export default function AdminHostBloodDrive() {
 		let status = !item.done;
 
 		axios
-			.put(`http://localhost:3001/api/host-blood-drive/done`, {
+			.put(`${BASE_URL}/api/host-blood-drive/done`, {
 				status,
 				id,
 			})
@@ -115,9 +117,9 @@ export default function AdminHostBloodDrive() {
 
 	const handleDelete = (id) => {
 		axios
-			.delete(`http://localhost:3001/api/host-blood-drive/delete/${id}`)
-			.then((response) => {
-				setData(data.filter((item) => item.id !== id));
+			.delete(`${BASE_URL}/api/host-blood-drive/delete/${id}`)
+			.then((res) => {
+				setData(res.data);
 			})
 			.catch((error) => {
 				console.error(error);
@@ -126,7 +128,7 @@ export default function AdminHostBloodDrive() {
 
 	const handleUpdateClick = (id) => {
 		axios
-			.put(`http://localhost:3001/api/host-blood-drive/update/${id}`, {
+			.put(`${BASE_URL}/api/host-blood-drive/update/${id}`, {
 				updatedData,
 			})
 			.then((response) => {
@@ -177,7 +179,7 @@ export default function AdminHostBloodDrive() {
 	return (
 		<>
 			<HeaderStats heading="Blood Drive Hosting Users" />
-			<div className="bg-white p-10 m-10 -mt-20 rounded-rsm">
+			<div className="p-10 m-10 -mt-20 bg-white rounded-rsm">
 				<FilterableComponent
 					filter={filter}
 					handleSearchChange={handleSearchChange}

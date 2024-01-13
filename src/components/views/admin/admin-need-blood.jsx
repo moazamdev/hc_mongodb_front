@@ -5,6 +5,9 @@ import DisplayTableComponent from "../../sections/display-table/display-table-co
 import FilterableComponent from "../../sections/filterable/filterable-component";
 import InitialDataFetching from "../../utility-functions/initial-data-fetching";
 
+import { BASE_URL } from "../../utility-functions/base-url";
+
+
 export default function AdminNeedBlood() {
 	const [data, setData] = useState([]);
 	const [filter, setFilter] = useState("");
@@ -93,7 +96,7 @@ export default function AdminNeedBlood() {
 		let status = !item.given;
 
 		axios
-			.put(`http://localhost:3001/api/need-blood/given`, {
+			.put(`${BASE_URL}/api/need-blood/given`, {
 				status,
 				id,
 			})
@@ -111,9 +114,9 @@ export default function AdminNeedBlood() {
 
 	const handleDelete = (id) => {
 		axios
-			.delete(`http://localhost:3001/api/need-blood/delete/${id}`)
-			.then((response) => {
-				setData(data.filter((item) => item.id !== id));
+			.delete(`${BASE_URL}/api/need-blood/delete/${id}`)
+			.then((res) => {
+				setData(res.data);
 			})
 			.catch((error) => {
 				console.error(error);
@@ -122,7 +125,7 @@ export default function AdminNeedBlood() {
 
 	const handleUpdateClick = (id) => {
 		axios
-			.put(`http://localhost:3001/api/need-blood/update/${id}`, {
+			.put(`${BASE_URL}/api/need-blood/update/${id}`, {
 				updatedData,
 			})
 			.then((response) => {
@@ -167,7 +170,7 @@ export default function AdminNeedBlood() {
 	return (
 		<>
 			<HeaderStats heading="Blood Requesting Users" />
-			<div className="bg-white p-10 m-10 -mt-20 rounded-rsm">
+			<div className="p-10 m-10 -mt-20 bg-white rounded-rsm">
 				<FilterableComponent
 					filter={filter}
 					handleSearchChange={handleSearchChange}

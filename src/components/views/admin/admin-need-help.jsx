@@ -5,6 +5,9 @@ import DisplayTableComponent from "../../sections/display-table/display-table-co
 import FilterableComponent from "../../sections/filterable/filterable-component";
 import InitialDataFetching from "../../utility-functions/initial-data-fetching";
 
+import { BASE_URL } from "../../utility-functions/base-url";
+
+
 export default function AdminNeedHelp() {
 	const [data, setData] = useState([]);
 	const [filter, setFilter] = useState("");
@@ -94,7 +97,7 @@ export default function AdminNeedHelp() {
 		let status = !item.answered;
 
 		axios
-			.put(`http://localhost:3001/api/need-help/answered`, {
+			.put(`${BASE_URL}/api/need-help/answered`, {
 				status,
 				id,
 			})
@@ -112,9 +115,9 @@ export default function AdminNeedHelp() {
 
 	const handleDelete = (id) => {
 		axios
-			.delete(`http://localhost:3001/api/need-help/delete/${id}`)
-			.then((response) => {
-				setData(data.filter((item) => item.id !== id));
+			.delete(`${BASE_URL}/api/need-help/delete/${id}`)
+			.then((res) => {
+				setData(res.data);
 			})
 			.catch((error) => {
 				console.error(error);
@@ -123,7 +126,7 @@ export default function AdminNeedHelp() {
 
 	const handleUpdateClick = (id) => {
 		axios
-			.put(`http://localhost:3001/api/need-help/update/${id}`, {
+			.put(`${BASE_URL}/api/need-help/update/${id}`, {
 				updatedData,
 			})
 			.then((response) => {
@@ -168,7 +171,7 @@ export default function AdminNeedHelp() {
 	return (
 		<>
 			<HeaderStats heading="Help Needing Users" />{" "}
-			<div className="bg-white p-10 m-10 -mt-20 rounded-rsm">
+			<div className="p-10 m-10 -mt-20 bg-white rounded-rsm">
 				<FilterableComponent
 					filter={filter}
 					handleSearchChange={handleSearchChange}

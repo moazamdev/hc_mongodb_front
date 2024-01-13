@@ -5,6 +5,8 @@ import DisplayTableComponent from "../../sections/display-table/display-table-co
 import FilterableComponent from "../../sections/filterable/filterable-component";
 import InitialDataFetching from "../../utility-functions/initial-data-fetching";
 
+import { BASE_URL } from "../../utility-functions/base-url";
+
 export default function AdminDonateBlood() {
 	const [data, setData] = useState([]);
 	const [filter, setFilter] = useState("");
@@ -82,7 +84,7 @@ export default function AdminDonateBlood() {
 		let status = !item.donated;
 
 		axios
-			.put(`http://localhost:3001/api/donate-blood/donated`, {
+			.put(`${BASE_URL}/api/donate-blood/donated`, {
 				status,
 				id,
 			})
@@ -92,7 +94,6 @@ export default function AdminDonateBlood() {
 						item.id === id ? { ...item, donated: status } : item
 					)
 				);
-				console.log(`status: ${status} --- donated: ${item.donated}`);
 			})
 			.catch((error) => {
 				console.error(error);
@@ -101,9 +102,9 @@ export default function AdminDonateBlood() {
 
 	const handleDelete = (id) => {
 		axios
-			.delete(`http://localhost:3001/api/donate-blood/delete/${id}`)
-			.then((response) => {
-				setData(data.filter((item) => item.id !== id));
+			.delete(`${BASE_URL}/api/donate-blood/delete/${id}`)
+			.then((res) => {
+				setData(res.data);
 			})
 			.catch((error) => {
 				console.error(error);
@@ -112,7 +113,7 @@ export default function AdminDonateBlood() {
 
 	const handleUpdateClick = (id) => {
 		axios
-			.put(`http://localhost:3001/api/donate-blood/update/${id}`, {
+			.put(`${BASE_URL}/api/donate-blood/update/${id}`, {
 				updatedData,
 			})
 			.then((response) => {
